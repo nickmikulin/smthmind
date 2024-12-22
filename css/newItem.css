@@ -1,185 +1,186 @@
 #newItem {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    width: 40%;
-    height: 100%;
-    max-height: 100svh;
-    padding: var(--space-md) 0 var(--space-md) var(--space-md);
+  width: 40%;
+  height: 100%;
+  max-height: 100svh;
+  padding: var(--space-md) 0 var(--space-md) var(--space-md);
 
-    outline: var(--border-width) var(--border) solid;
+  outline: var(--border-width) var(--border) solid;
 }
 
 #tagWrapper {
-    display: flex;
-    flex-direction: row;
-    
-    height: 1.25rem;
+  display: flex;
+  flex-direction: row;
 
-    font-size: var(--font-sm);
-    line-height: var(--line-height-base);
-    color: var(--text-secondary);
+  height: 1.25rem;
+
+  font-size: var(--font-sm);
+  line-height: var(--line-height-base);
+  color: var(--text-secondary);
 }
 
 #newItemTag {
-    width: 15rem;
+  width: 15rem;
 
-    font-size: var(--font-sm);
-    color: var(--text-secondary);
-    line-height: var(--line-height-base);
-    text-transform: uppercase;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-base);
+  text-transform: uppercase;
 
-    padding: 0 0 0 0.25rem;
-    background-color: var(--background);
-    border: none;
+  padding: 0 0 0 0.25rem;
+  background-color: var(--background);
+  border: none;
 }
 
 #newItemText {
-    flex: 1;
+  flex: 1;
 
-    font-size: var(--font-xl);
-    line-height: var(--line-height-base);
-    resize: none;
-    color: var(--text-primary);
+  font-size: var(--font-xl);
+  line-height: var(--line-height-base);
+  resize: none;
+  color: var(--text-primary);
 
-    padding: var(--space-xs) var(--space-lg) 0 0;
-    background-color: var(--main);
-    border: none;
+  padding: var(--space-xs) var(--space-lg) 0 0;
+  background-color: var(--main);
+  border: none;
 }
 
-#newItemText:focus, #newItemTag:focus {
-    outline: none;
+#newItemText:focus,
+#newItemTag:focus {
+  outline: none;
 }
 
-#newItemText::placeholder, #newItemTag::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.5;
+#newItemText::placeholder,
+#newItemTag::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
 }
 
 .newItemControls {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    padding-right: var(--space-md);
-    padding-top: var(--space-xs);
+  padding-right: var(--space-md);
+  padding-top: var(--space-xs);
 }
 
 .sentimentSelect {
-    display: flex;
-    flex-direction: row;
-    height: 3rem;
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
 }
 
 .sentimentLabel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    height: 3rem;
-    width: 3rem;
+  height: 3rem;
+  width: 3rem;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .sentimentLabel img {
-    height: 3rem;
-    width: 3rem;
+  height: 3rem;
+  width: 3rem;
 
-    transition: 0.4s ease;
+  transition: 0.4s ease;
 }
 
 .sentimentLabel .bg {
-    position: absolute;
+  position: absolute;
 
-    opacity: 0.5;
-    filter: grayscale(1);
+  opacity: 0.5;
+  filter: grayscale(1);
 }
 
 .sentimentLabel .fg {
-    z-index: 1;
+  z-index: 1;
 }
 
-
 #radios label {
-	position: relative;
+  position: relative;
 }
 
 input[type="radio"] {
-    position: fixed;
-    opacity: 0;
-    pointer-events: none;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
 }
 
 input[type="radio"]:hover + img {
-    opacity: 1;
-    filter: grayscale(0);
+  opacity: 1;
+  filter: grayscale(0);
 }
 
 input[type="radio"]:checked + img {
-    width: 3.6rem;
-    height: 3.6rem;
+  width: 3.6rem;
+  height: 3.6rem;
 
-    opacity: 1;
-    filter: grayscale(0);
+  opacity: 1;
+  filter: grayscale(0);
 }
 
 .actionButton {
-    display: flex;
-    gap: var(--space-xs);
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  justify-content: center;
 
-    height: 2.75rem;
-    width: 2.75rem;
-    padding: 2px 0 0 0;
+  height: 2.75rem;
+  width: 2.75rem;
+  padding: 2px 0 0 0;
 
-    font-size: var(--font-xl);
-    font-weight: 500;
-    color: var(--background);
-    
-    border: none;
-    background-color: var(--text-primary);
-    border-radius: 1.5rem;
+  font-size: var(--font-xl);
+  font-weight: 500;
+  color: var(--background);
 
-    transition: 0.4s ease;
+  border: none;
+  background-color: var(--text-primary);
+  border-radius: 1.5rem;
+
+  transition: 0.4s ease;
 }
 
 .actionButton:hover {
-    cursor: pointer;
+  cursor: pointer;
 
-    transform: scale(1.2);
-    transition: 0.4s ease;
+  transform: scale(1.2);
+  transition: 0.4s ease;
 }
 
 @media (max-width: 920px) {
-    #newItem {
-        width: 100%;
-        height: 40svh;
+  #newItem {
+    width: 100%;
+    height: 33svh;
 
-        padding-top: var(--space-sm);
-        padding-bottom: var(--space-xl);
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-xl);
 
-        z-index: 1;
-    }
+    z-index: 1;
+  }
 
-    #tagWrapper {
-        font-size: var(--font-md);
-        height: 1.5rem;
-    }
+  #tagWrapper {
+    font-size: var(--font-md);
+    height: 1.5rem;
+  }
 
-    #newItemTag {
-        font-size: var(--font-md);
-    }
+  #newItemTag {
+    font-size: var(--font-md);
+  }
 
-    #newItemText {
-        font-size: var(--font-lg);
-        line-height: var(--line-height-base);
-    }
+  #newItemText {
+    font-size: var(--font-lg);
+    line-height: var(--line-height-base);
+  }
 
-    .actionButton:hover {
-        transform: none;
-        transition: none;
-    }
+  .actionButton:hover {
+    transform: none;
+    transition: none;
+  }
 }

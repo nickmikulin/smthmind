@@ -1,36 +1,36 @@
 :root {
-    font-family: Inter, sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
-    line-height: var(--line-height-base);
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+  line-height: var(--line-height-base);
 
-    --background: #eee;
-    --text-primary: #333;
-    --text-secondary: #999;
-    --border: #ddd;
+  --background: #eee;
+  --text-primary: #333;
+  --text-secondary: #999;
+  --border: #ddd;
 
-    --border-width: 1px;
+  --border-width: 1px;
 
-    --space-xs: 0.5rem;
-    --space-sm: 0.75rem;
-    --space-md: 1rem;
-    --space-lg: 1.25rem;
-    --space-xl: 2rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.25rem;
+  --space-xl: 2rem;
 
-    --font-sm: 0.875rem;
-    --font-md: 1rem;
-    --font-lg: 1.125rem;
-    --font-xl: 1.5rem;
-    --line-height-base: 140%;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.5rem;
+  --line-height-base: 140%;
 
-    --card-rounded: 0.75rem;
-    --button-rounded: 0.375rem;
+  --card-rounded: 0.75rem;
+  --button-rounded: 0.375rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #303030;
+    --text-primary: #eeeeee;
+    --text-secondary: #777;
+    --border: #3b3b3b;
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #303030;
-      --text-primary: #eeeeee;
-      --text-secondary: #777;
-      --border: #3b3b3b;
-    }
-  }
+}

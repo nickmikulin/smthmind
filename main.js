@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function getAndDisplayThoughts() {
   db.thoughts.reverse().toArray().then(displayThoughts);
   document.getElementById("clearFilter").innerHTML = "";
-  document.getElementById("listFilter").innerHTML = "MY THOUGHTS";
-  document.getElementById("exportLink").innerHTML = "Export ↓";
+  document.getElementById("listFilter").innerHTML = "EVERYTHING";
+  document.getElementById("exportLink").innerHTML = "⤓ Export";
 }
 
 function filterThoughts(filter, value) {
@@ -72,7 +72,7 @@ function filterThoughts(filter, value) {
     filter == "mood"
       ? `<img id='filterMood' src='assets/${value}.png' alt='${value}'></img>`
       : value;
-  document.getElementById("clearFilter").innerHTML = "Clear";
+  document.getElementById("clearFilter").innerHTML = "✗ Clear";
   document.getElementById("exportLink").innerHTML = "";
 }
 
@@ -123,7 +123,7 @@ function displayThoughts(items) {
       const itemTag =
         item.tag == ""
           ? ""
-          : ` → <div class='itemTag' onClick='filterThoughts("tag", "${item.tag}")'>${item.tag}</div>`;
+          : ` # <div class='itemTag' onClick='filterThoughts("tag", "${item.tag}")'>${item.tag}</div>`;
 
       itemsList +=
         `<div class='item'><img class='itemSentiment' onClick='filterThoughts("mood", "${item.mood}")' src='assets/` +
@@ -135,7 +135,7 @@ function displayThoughts(items) {
         itemTag +
         "</div><div class='itemDelete' onClick='deleteItem(" +
         item.timestamp +
-        ")'>Delete</div></div><div class='itemText'>" +
+        ")'>✗ Del</div></div><div class='itemText'>" +
         item.text +
         "</div></div></div>";
     }
@@ -145,8 +145,11 @@ function displayThoughts(items) {
 }
 
 function deleteItem(timestamp) {
-  db.thoughts.delete(timestamp).then(getAndDisplayThoughts);
-  umami.track("record deleted");
+  const confirmDelete = confirm("Are you sure you want to delete this?");
+  if (confirmDelete) {
+    db.thoughts.delete(timestamp).then(getAndDisplayThoughts);
+    umami.track("record deleted");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

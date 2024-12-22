@@ -1,46 +1,48 @@
 * {
-    box-sizing: border-box;
-    font-family: inherit;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 body {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
-    background-color: var(--background);
+  background-color: var(--background);
 
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
 
 .app {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    width: 100%;
-    height: 100svh;
+  width: 100%;
+  height: 100svh;
 }
 
 #wrapper {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 @supports (font-variation-settings: normal) {
-    :root { font-family: InterVariable, sans-serif; }
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
 }
 
 @media (max-width: 920px) {
-    .app {
-        flex-direction: column-reverse;
-    }
+  .app {
+    flex-direction: column-reverse;
+  }
 
-    #wrapper {
-        flex: 1;
-        
-        height: 0;
-    }
+  #wrapper {
+    flex: 1;
+
+    height: 0;
+  }
 }
