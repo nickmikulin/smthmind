@@ -6,6 +6,7 @@
   --background: #eee;
   --text-primary: #333;
   --text-secondary: #999;
+  --button-bg: #e5e5e5;
   --border: #ddd;
 
   --border-width: 1px;
@@ -19,7 +20,7 @@
   --font-sm: 0.875rem;
   --font-md: 1rem;
   --font-lg: 1.125rem;
-  --font-xl: 1.5rem;
+  --font-xl: 1.75rem;
   --line-height-base: 140%;
 
   --card-rounded: 0.75rem;
@@ -31,6 +32,7 @@
     --background: #303030;
     --text-primary: #eeeeee;
     --text-secondary: #777;
+    --button-bg: #3b3b3b;
     --border: #3b3b3b;
   }
 }

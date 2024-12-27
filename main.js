@@ -54,10 +54,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getAndDisplayThoughts() {
-  db.thoughts.reverse().toArray().then(displayThoughts);
-  document.getElementById("clearFilter").innerHTML = "";
-  document.getElementById("listFilter").innerHTML = "EVERYTHING";
-  document.getElementById("exportLink").innerHTML = "⤓ Export";
+  db.thoughts
+    .reverse()
+    .toArray()
+    .then((items) => {
+      displayThoughts(items);
+      const count = items.length;
+      if (count == 0) {
+        document.getElementById("listHeader").style.display = "none";
+      } else {
+        const counter =
+          items.length != 1 ? `${count} RECORDS` : `${count} RECORD`;
+        document.getElementById("clearFilter").style.display = "none";
+        document.getElementById("listFilter").innerHTML = counter;
+        document.getElementById("menu").style.display = "flex";
+      }
+    });
 }
 
 function filterThoughts(filter, value) {
@@ -66,14 +78,16 @@ function filterThoughts(filter, value) {
     .equals(value)
     .reverse()
     .toArray()
-    .then(displayThoughts);
-
-  document.getElementById("listFilter").innerHTML =
-    filter == "mood"
-      ? `<img id='filterMood' src='assets/${value}.png' alt='${value}'></img>`
-      : value;
-  document.getElementById("clearFilter").innerHTML = "✗ Clear";
-  document.getElementById("exportLink").innerHTML = "";
+    .then((items) => {
+      displayThoughts(items);
+      const count = items.length;
+      document.getElementById("listFilter").innerHTML =
+        filter == "mood"
+          ? `${count} <img id='filterMood' src='assets/${value}.png' alt='${value}'></img>`
+          : `${count} #${value}`;
+      document.getElementById("menu").style.display = "none";
+      document.getElementById("clearFilter").style.display = "block";
+    });
 }
 
 function displayThoughts(items) {
@@ -123,7 +137,7 @@ function displayThoughts(items) {
       const itemTag =
         item.tag == ""
           ? ""
-          : ` # <div class='itemTag' onClick='filterThoughts("tag", "${item.tag}")'>${item.tag}</div>`;
+          : `<div class='itemTag' onClick='filterThoughts("tag", "${item.tag}")'>#${item.tag}</div>`;
 
       itemsList +=
         `<div class='item'><img class='itemSentiment' onClick='filterThoughts("mood", "${item.mood}")' src='assets/` +
@@ -135,7 +149,7 @@ function displayThoughts(items) {
         itemTag +
         "</div><div class='itemDelete' onClick='deleteItem(" +
         item.timestamp +
-        ")'>✗ Del</div></div><div class='itemText'>" +
+        ")'>✗✗</div></div><div class='itemText'>" +
         item.text +
         "</div></div></div>";
     }

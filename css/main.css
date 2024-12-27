@@ -23,6 +23,29 @@ body {
   height: 100svh;
 }
 
+.button {
+  padding: 0.25rem var(--space-sm);
+  border-radius: var(--space-md);
+  background-color: var(--button-bg);
+
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  line-height: var(--line-height-base);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.button:hover {
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 #wrapper {
   display: flex;
   flex-direction: column;

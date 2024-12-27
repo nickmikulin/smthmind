@@ -1,37 +1,39 @@
 #listHeader {
-  display: none;
+  display: flex;
   align-items: center;
 
   width: 100%;
-  padding: var(--space-md) var(--space-lg);
+  height: 3.5rem;
+  padding: 0 var(--space-xs) 0 var(--space-lg);
+  gap: var(--space-xs);
 
   font-size: var(--font-sm);
-  color: var(--text-secondary);
   line-height: var(--line-height-base);
 
   border-bottom: var(--border-width) var(--border) solid;
 }
 
+#menu {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+
 #listFilter {
   display: flex;
   flex-direction: row;
-  gap: var(--space-xs);
+  color: var(--text-secondary);
 }
 
 #filterMood {
   height: 1.2rem;
+  margin-left: 0.1rem;
 }
 
 #clearFilter {
-  flex: 1;
-
-  margin-left: var(--space-xs);
-
-  cursor: pointer;
-}
-
-#clearFilter:hover {
-  color: var(--text-primary);
+  display: none;
 }
 
 .menuItem {
@@ -41,15 +43,6 @@
 }
 
 .menuItem:hover {
-  color: var(--text-primary);
-}
-
-.menuItem a {
-  text-decoration: none;
-  color: var(--text-secondary);
-}
-
-.menuItem a:hover {
   color: var(--text-primary);
 }
 
@@ -169,18 +162,12 @@
 
 @media (max-width: 920px) {
   #listHeader {
-    padding: var(--space-md) var(--space-md) var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-xs) var(--space-sm) var(--space-md);
   }
 
   .item {
     padding: var(--space-sm) var(--space-md);
     gap: var(--space-xs);
-  }
-
-  #listFilter:hover,
-  #clearFilter:hover,
-  .itemTag:hover {
-    color: var(--text-secondary);
   }
 
   .menuItem:hover,
