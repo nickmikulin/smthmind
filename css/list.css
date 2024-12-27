@@ -18,32 +18,22 @@
   flex: 1;
   flex-direction: row;
   justify-content: flex-end;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 #listFilter {
   display: flex;
   flex-direction: row;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 #filterMood {
   height: 1.2rem;
-  margin-left: 0.1rem;
+  margin-right: 0.25rem;
 }
 
 #clearFilter {
   display: none;
-}
-
-.menuItem {
-  margin-left: var(--space-sm);
-
-  cursor: pointer;
-}
-
-.menuItem:hover {
-  color: var(--text-primary);
 }
 
 #list {

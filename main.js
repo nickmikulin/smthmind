@@ -64,7 +64,7 @@ function getAndDisplayThoughts() {
         document.getElementById("listHeader").style.display = "none";
       } else {
         const counter =
-          items.length != 1 ? `${count} RECORDS` : `${count} RECORD`;
+          items.length != 1 ? `ALL ${count} RECORDS` : `${count} RECORD`;
         document.getElementById("clearFilter").style.display = "none";
         document.getElementById("listFilter").innerHTML = counter;
         document.getElementById("menu").style.display = "flex";
@@ -83,8 +83,8 @@ function filterThoughts(filter, value) {
       const count = items.length;
       document.getElementById("listFilter").innerHTML =
         filter == "mood"
-          ? `${count} <img id='filterMood' src='assets/${value}.png' alt='${value}'></img>`
-          : `${count} #${value}`;
+          ? `<img id='filterMood' src='assets/${value}.png' alt='${value}'></img> [${count}]`
+          : `#${value} [${count}]`;
       document.getElementById("menu").style.display = "none";
       document.getElementById("clearFilter").style.display = "block";
     });
@@ -149,7 +149,7 @@ function displayThoughts(items) {
         itemTag +
         "</div><div class='itemDelete' onClick='deleteItem(" +
         item.timestamp +
-        ")'>✗✗</div></div><div class='itemText'>" +
+        ")'></div></div><div class='itemText'>" +
         item.text +
         "</div></div></div>";
     }

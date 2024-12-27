@@ -24,13 +24,10 @@ body {
 }
 
 .button {
-  padding: 0.25rem var(--space-sm);
-  border-radius: var(--space-md);
-  background-color: var(--button-bg);
-
   color: var(--text-secondary);
   font-size: var(--font-sm);
-  line-height: var(--line-height-base);
+  text-transform: uppercase;
+  align-content: top;
 
   cursor: pointer;
   user-select: none;
