@@ -64,10 +64,11 @@ function getAndDisplayThoughts() {
         document.getElementById("listHeader").style.display = "none";
       } else {
         const counter =
-          items.length != 1 ? `ALL ${count} RECORDS` : `${count} RECORD`;
+          items.length != 1 ? `${count} RECORDS` : `${count} RECORD`;
         document.getElementById("clearFilter").style.display = "none";
         document.getElementById("listFilter").innerHTML = counter;
         document.getElementById("menu").style.display = "flex";
+        document.getElementById("filters").innerHTML = showTags();
       }
     });
 }
@@ -87,6 +88,7 @@ function filterThoughts(filter, value) {
           : `#${value} [${count}]`;
       document.getElementById("menu").style.display = "none";
       document.getElementById("clearFilter").style.display = "block";
+      document.getElementById("filters").style.display = "none";
     });
 }
 
@@ -164,6 +166,19 @@ function deleteItem(timestamp) {
     db.thoughts.delete(timestamp).then(getAndDisplayThoughts);
     umami.track("record deleted");
   }
+}
+
+function showTags() {
+  const tags = db.thoughts.orderBy("tag").uniqueKeys();
+  tags.then((tags) => {
+    const tagsList = tags
+      .filter((tag) => tag != "")
+      .map((tag) => {
+        return `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
+      });
+    document.getElementById("filters").innerHTML = tagsList.join("");
+    document.getElementById("filters").style.display = "flex";
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
