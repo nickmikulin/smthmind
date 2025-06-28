@@ -43,6 +43,27 @@ a {
   color: inherit;
 }
 
+.privacy-policy {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+.privacy-policy h1 {
+  line-height: 120%;
+}
+
+.privacy-policy h2 {
+  padding-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
+.privacy-policy p {
+  margin-top: var(--space-sm);
+}
+
 #wrapper {
   display: flex;
   flex-direction: column;
