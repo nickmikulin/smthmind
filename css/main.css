@@ -20,7 +20,9 @@ body {
   flex-direction: row;
 
   width: 100%;
-  height: 100dvh;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
 }
 
 .button {
@@ -83,14 +85,16 @@ a {
 
   #wrapper {
     flex: 1;
-    margin-bottom: 33svh;
+    margin-bottom: 0;
 
     height: 0;
+    overflow-y: auto;
     transition: opacity 0.2s ease-out;
   }
 
   .app.keyboard-open #wrapper {
     opacity: 0.5;
+    margin-bottom: 0;
   }
 
   .app.keyboard-open #newItem {

@@ -71,7 +71,7 @@
   justify-content: flex-start;
 
   width: 100%;
-  padding: var(--space-md) var(--space-md) 0 var(--space-lg);
+  padding: var(--space-md) var(--space-md) 0 var(--space-md);
   margin-top: var(--space-md);
 
   font-size: var(--font-sm);
@@ -177,6 +177,10 @@
   #filters {
     padding-left: var(--space-md);
     padding-right: var(--space-md);
+  }
+
+  #list {
+    padding-bottom: 35svh;
   }
 
   .item {
