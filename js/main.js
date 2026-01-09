@@ -74,15 +74,18 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
   });
 
-  // Force app height to match visual viewport (handles iOS keyboard)
+  // Force app to match visual viewport (handles iOS keyboard)
   if (window.visualViewport) {
     const app = document.querySelector('.app');
 
     function resizeApp() {
-      app.style.height = window.visualViewport.height + 'px';
+      const vv = window.visualViewport;
+      app.style.height = vv.height + 'px';
+      app.style.transform = `translateY(${vv.offsetTop}px)`;
     }
 
     window.visualViewport.addEventListener('resize', resizeApp);
+    window.visualViewport.addEventListener('scroll', resizeApp);
     resizeApp();
   }
 });
