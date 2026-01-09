@@ -139,28 +139,18 @@ input[type="radio"]:checked ~ img {
 
 @media (max-width: 920px) {
   #newItem {
-    position: fixed;
+    position: sticky;
     bottom: 0;
+
     width: 100%;
     height: auto;
-    min-height: 25svh;
-    max-height: 50svh;
+    max-height: 50dvh;
 
     padding-top: var(--space-sm);
     padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
-
-    z-index: 1;
-
-    transform: translateY(calc(-1 * var(--keyboard-height, 0px)));
-    transition: transform 0.2s ease-out;
   }
 
   #newItemText {
-    flex: 0 1 auto;
-    field-sizing: content;
-    min-height: 3rem;
-    max-height: 30svh;
-
     font-size: var(--font-lg);
     line-height: var(--line-height-base);
   }

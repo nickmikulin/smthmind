@@ -179,10 +179,6 @@
     padding-right: var(--space-md);
   }
 
-  #list {
-    padding-bottom: 35svh;
-  }
-
   .item {
     padding: var(--space-sm) var(--space-md);
     gap: var(--space-xs);
