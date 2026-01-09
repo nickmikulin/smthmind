@@ -53,6 +53,21 @@ document.addEventListener("DOMContentLoaded", function () {
         umami.track("record added", { mood: itemMood });
       }
     });
+
+  document.querySelectorAll('.sentimentLabel').forEach(label => {
+    label.addEventListener('mousedown', (e) => {
+      const activeElement = document.activeElement;
+      e.preventDefault();
+      label.querySelector('input[type="radio"]').checked = true;
+      if (activeElement && (activeElement.id === 'newItemText' || activeElement.id === 'newItemTag')) {
+        activeElement.focus();
+      }
+    });
+  });
+
+  document.getElementById('actionButton').addEventListener('mousedown', (e) => {
+    e.preventDefault();
+  });
 });
 
 function getAndDisplayThoughts(newItemTimestamp = null) {
