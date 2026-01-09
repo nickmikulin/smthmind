@@ -79,32 +79,17 @@
   align-items: center;
   justify-content: center;
 
-  height: 3rem;
-  width: 3rem;
-
   cursor: pointer;
-}
-
-.sentimentLabel img {
-  height: 3rem;
-  width: 3rem;
-
   transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
-.sentimentLabel .bg {
-  position: absolute;
+.sentimentLabel img {
+  height: 2.75rem;
+  width: 2.75rem;
 
   opacity: 0.5;
   filter: grayscale(1);
-}
-
-.sentimentLabel .fg {
-  z-index: 1;
-}
-
-#radios label {
-  position: relative;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
 input[type="radio"] {
@@ -113,12 +98,12 @@ input[type="radio"] {
   pointer-events: none;
 }
 
-input[type="radio"]:hover + img {
+.sentimentLabel:hover img {
   opacity: 1;
   filter: grayscale(0);
 }
 
-input[type="radio"]:checked + img {
+input[type="radio"]:checked ~ img {
   width: 3.5rem;
   height: 3.5rem;
 
@@ -155,7 +140,7 @@ input[type="radio"]:checked + img {
     height: 33svh;
 
     padding-top: var(--space-sm);
-    padding-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
 
     z-index: 1;
   }
