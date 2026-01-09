@@ -48,25 +48,52 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector(
               `input[name="sentiment"]:checked`
             ).checked = false;
+            document.activeElement.blur();
             addNewItemToList(timestamp, itemTag, itemMood, itemText);
           });
         umami.track("record added", { mood: itemMood });
       }
     });
 
-  document.querySelectorAll('.sentimentLabel').forEach(label => {
-    label.addEventListener('mousedown', (e) => {
+  document.querySelectorAll(".sentimentLabel").forEach((label) => {
+    label.addEventListener("mousedown", (e) => {
       const activeElement = document.activeElement;
       e.preventDefault();
       label.querySelector('input[type="radio"]').checked = true;
-      if (activeElement && (activeElement.id === 'newItemText' || activeElement.id === 'newItemTag')) {
+      if (
+        activeElement &&
+        (activeElement.id === "newItemText" ||
+          activeElement.id === "newItemTag")
+      ) {
         activeElement.focus();
       }
     });
   });
 
-  document.getElementById('actionButton').addEventListener('mousedown', (e) => {
+  document.getElementById("actionButton").addEventListener("mousedown", (e) => {
     e.preventDefault();
+  });
+
+  const inputs = [
+    document.getElementById("newItemText"),
+    document.getElementById("newItemTag"),
+  ];
+
+  inputs.forEach((input) => {
+    input.addEventListener("focus", () => {
+      document.querySelector(".app").classList.add("keyboard-open");
+    });
+
+    input.addEventListener("blur", () => {
+      setTimeout(() => {
+        if (
+          !document.getElementById("newItemText").matches(":focus") &&
+          !document.getElementById("newItemTag").matches(":focus")
+        ) {
+          document.querySelector(".app").classList.remove("keyboard-open");
+        }
+      }, 100);
+    });
   });
 });
 
@@ -161,7 +188,11 @@ function displayThoughts(items, newItemTimestamp = null) {
 
       const isNewItem = newItemTimestamp === item.timestamp;
       itemsList +=
-        `<div class='item${isNewItem ? " new" : ""}' data-timestamp='${item.timestamp}'><img class='itemSentiment' onClick='filterThoughts("mood", "${item.mood}")' src='assets/` +
+        `<div class='item${isNewItem ? " new" : ""}' data-timestamp='${
+          item.timestamp
+        }'><img class='itemSentiment' onClick='filterThoughts("mood", "${
+          item.mood
+        }")' src='assets/` +
         item.mood +
         ".png' alt='" +
         item.mood +
@@ -181,12 +212,24 @@ function displayThoughts(items, newItemTimestamp = null) {
 
 function addNewItemToList(timestamp, tag, mood, text) {
   const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const date = new Date(timestamp);
-  const dateStr = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  const dateStr = `${date.getDate()} ${
+    monthNames[date.getMonth()]
+  } ${date.getFullYear()}`;
   const timeString = date.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -201,7 +244,8 @@ function addNewItemToList(timestamp, tag, mood, text) {
 
   const existingFirstDate = listElement.querySelector(".date");
 
-  const needsNewDate = !existingFirstDate || existingFirstDate.textContent.trim() !== dateStr;
+  const needsNewDate =
+    !existingFirstDate || existingFirstDate.textContent.trim() !== dateStr;
 
   if (needsNewDate) {
     const dateElement = document.createElement("div");
@@ -211,13 +255,18 @@ function addNewItemToList(timestamp, tag, mood, text) {
   }
 
   const existingItems = Array.from(listElement.querySelectorAll(".item"));
-  const oldPositions = existingItems.map(item => item.getBoundingClientRect().top);
+  const oldPositions = existingItems.map(
+    (item) => item.getBoundingClientRect().top
+  );
 
   const itemElement = document.createElement("div");
   itemElement.className = "item new";
   itemElement.dataset.timestamp = timestamp;
 
-  const itemTag = tag === "" ? "" : `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
+  const itemTag =
+    tag === ""
+      ? ""
+      : `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
 
   itemElement.innerHTML = `<img class='itemSentiment' onClick='filterThoughts("mood", "${mood}")' src='assets/${mood}.png' alt='${mood}' /><div class='itemContent'><div class='itemHeader'><div class='itemData'>${timeString}${itemTag}</div><div class='itemDelete' onClick='deleteItem(${timestamp})'></div></div><div class='itemText'>${text}</div></div>`;
 
@@ -234,11 +283,11 @@ function addNewItemToList(timestamp, tag, mood, text) {
 
     if (delta !== 0) {
       item.style.transform = `translateY(${delta}px)`;
-      item.style.transition = 'none';
+      item.style.transition = "none";
 
       requestAnimationFrame(() => {
-        item.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-        item.style.transform = 'translateY(0)';
+        item.style.transition = "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+        item.style.transform = "translateY(0)";
       });
     }
   });
@@ -255,7 +304,9 @@ function addNewItemToList(timestamp, tag, mood, text) {
 function deleteItem(timestamp) {
   const confirmDelete = confirm("Are you sure you want to delete this?");
   if (confirmDelete) {
-    const itemToDelete = document.querySelector(`.item[data-timestamp="${timestamp}"]`);
+    const itemToDelete = document.querySelector(
+      `.item[data-timestamp="${timestamp}"]`
+    );
 
     if (itemToDelete) {
       const listElement = document.getElementById("list");
@@ -263,11 +314,14 @@ function deleteItem(timestamp) {
       const allItems = Array.from(listElement.querySelectorAll(".item"));
       const deleteIndex = allItems.indexOf(itemToDelete);
       const itemsBelow = allItems.slice(deleteIndex + 1);
-      const oldPositions = itemsBelow.map(item => item.getBoundingClientRect().top);
+      const oldPositions = itemsBelow.map(
+        (item) => item.getBoundingClientRect().top
+      );
 
-      itemToDelete.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
-      itemToDelete.style.opacity = '0';
-      itemToDelete.style.transform = 'translateX(-20px)';
+      itemToDelete.style.transition =
+        "opacity 0.2s ease-out, transform 0.2s ease-out";
+      itemToDelete.style.opacity = "0";
+      itemToDelete.style.transform = "translateX(-20px)";
 
       setTimeout(() => {
         db.thoughts.delete(timestamp).then(() => {
@@ -279,11 +333,12 @@ function deleteItem(timestamp) {
 
             if (delta !== 0) {
               item.style.transform = `translateY(${delta}px)`;
-              item.style.transition = 'none';
+              item.style.transition = "none";
 
               requestAnimationFrame(() => {
-                item.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                item.style.transform = 'translateY(0)';
+                item.style.transition =
+                  "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+                item.style.transform = "translateY(0)";
               });
             }
           });
@@ -294,7 +349,8 @@ function deleteItem(timestamp) {
                 "<div id='emptyState'><img src='assets/empty.png' alt='smthmind logo'/><p>Record your thoughts and mood for reflection. Everything is stored locally in your browser. Export data when you need it.</p></div>";
               document.getElementById("listHeader").style.display = "none";
             } else {
-              const counter = count !== 1 ? `${count} RECORDS` : `${count} RECORD`;
+              const counter =
+                count !== 1 ? `${count} RECORDS` : `${count} RECORD`;
               document.getElementById("listFilter").innerHTML = counter;
             }
           });

@@ -85,5 +85,14 @@ a {
     flex: 1;
 
     height: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  .app.keyboard-open #wrapper {
+    opacity: 0.5;
+  }
+
+  .app.keyboard-open #newItem {
+    opacity: 1;
   }
 }
