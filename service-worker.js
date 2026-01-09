@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smthmind-v1';
+const CACHE_NAME = `smthmind-${Date.now()}`;
 const urlsToCache = [
   '/',
   '/index.html',
