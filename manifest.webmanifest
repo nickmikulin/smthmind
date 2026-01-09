@@ -1,12 +1,12 @@
 {
   "name": "Something from Your Mind",
   "short_name": "smthmind",
-  "start_url": "https://smthmind.com",
-  "scope": "https://smthmind.com/",
-  "lang": "en-GB",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en-US",
   "theme_color": "#eeeeee",
   "display": "standalone",
-  
+
   "icons": [
       {
         "src": "assets/icon512.png",
