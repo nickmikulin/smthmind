@@ -3,12 +3,21 @@
   font-family: inherit;
 }
 
+html {
+  height: 100vh;
+  height: 100svh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   display: flex;
   justify-content: center;
-
-  margin: 0;
-  padding: 0;
 
   background-color: var(--background);
 
