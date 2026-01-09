@@ -73,6 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("actionButton").addEventListener("mousedown", (e) => {
     e.preventDefault();
   });
+
+  // Force app height to match visual viewport (handles iOS keyboard)
+  if (window.visualViewport) {
+    const app = document.querySelector('.app');
+
+    function resizeApp() {
+      app.style.height = window.visualViewport.height + 'px';
+    }
+
+    window.visualViewport.addEventListener('resize', resizeApp);
+    resizeApp();
+  }
 });
 
 function getAndDisplayThoughts(newItemTimestamp = null) {
