@@ -89,7 +89,7 @@
   height: 3rem;
   width: 3rem;
 
-  transition: 0.4s ease;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
 .sentimentLabel .bg {
@@ -119,8 +119,8 @@ input[type="radio"]:hover + img {
 }
 
 input[type="radio"]:checked + img {
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 3.5rem;
+  height: 3.5rem;
 
   opacity: 1;
   filter: grayscale(0);
@@ -136,7 +136,7 @@ input[type="radio"]:checked + img {
   border-radius: 1.5rem;
   background: none;
 
-  transition: 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #actionButton svg {
@@ -147,7 +147,6 @@ input[type="radio"]:checked + img {
   cursor: pointer;
 
   transform: rotate(-45deg);
-  transition: 0.4s ease;
 }
 
 @media (max-width: 920px) {
