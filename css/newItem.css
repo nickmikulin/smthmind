@@ -71,6 +71,7 @@
   display: flex;
   flex-direction: row;
   height: 3rem;
+  gap: 0.25rem;
 }
 
 .sentimentLabel {
@@ -83,8 +84,8 @@
 }
 
 .sentimentLabel img {
-  height: 2.75rem;
-  width: 2.75rem;
+  height: 2.5rem;
+  width: 2.5rem;
 
   opacity: 0.5;
   filter: grayscale(1);
@@ -103,8 +104,8 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked ~ img {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
 
   opacity: 1;
   filter: grayscale(0);
@@ -113,8 +114,8 @@ input[type="radio"]:checked ~ img {
 #actionButton {
   display: flex;
   padding: 0;
-  height: 44px;
-  width: 44px;
+  height: 2.5rem;
+  width: 2.5rem;
 
   border: none;
   border-radius: 1.5rem;
@@ -135,22 +136,15 @@ input[type="radio"]:checked ~ img {
 
 @media (max-width: 920px) {
   #newItem {
+    position: fixed;
+    bottom: 0;
     width: 100%;
     height: 33svh;
 
     padding-top: var(--space-sm);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
 
     z-index: 1;
-  }
-
-  #tagWrapper {
-    font-size: var(--font-md);
-    height: 1.5rem;
-  }
-
-  #newItemTag {
-    font-size: var(--font-md);
   }
 
   #newItemText {
