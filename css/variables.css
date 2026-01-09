@@ -3,6 +3,8 @@
   font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
   line-height: var(--line-height-base);
 
+  color-scheme: light;
+
   --background: #eee;
   --text-primary: #333;
   --text-secondary: #999;
@@ -29,6 +31,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
+
     --background: #303030;
     --text-primary: #eeeeee;
     --text-secondary: #777;
