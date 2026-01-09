@@ -33,10 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
         moodElement.style.animation = "shake 1s ease-in-out";
       } else {
         let itemMood = moodCheck.value;
+        const timestamp = Date.now();
 
         db.thoughts
           .add({
-            timestamp: Date.now(),
+            timestamp: timestamp,
             tag: itemTag,
             mood: itemMood,
             text: itemText,
@@ -47,19 +48,19 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector(
               `input[name="sentiment"]:checked`
             ).checked = false;
-            getAndDisplayThoughts();
+            addNewItemToList(timestamp, itemTag, itemMood, itemText);
           });
         umami.track("record added", { mood: itemMood });
       }
     });
 });
 
-function getAndDisplayThoughts() {
+function getAndDisplayThoughts(newItemTimestamp = null) {
   db.thoughts
     .reverse()
     .toArray()
     .then((items) => {
-      displayThoughts(items);
+      displayThoughts(items, newItemTimestamp);
       const count = items.length;
       if (count == 0) {
         document.getElementById("listHeader").style.display = "none";
@@ -93,7 +94,7 @@ function filterThoughts(filter, value) {
     });
 }
 
-function displayThoughts(items) {
+function displayThoughts(items, newItemTimestamp = null) {
   let itemsList = "";
   let oldDate = "";
   const monthNames = [
@@ -120,8 +121,9 @@ function displayThoughts(items) {
       let newDate = new Date(item.timestamp).getDate();
 
       if (newDate != oldDate) {
+        const isNewDate = i === 0 && newItemTimestamp === item.timestamp;
         itemsList +=
-          "<div class='date'>" +
+          `<div class='date${isNewDate ? " new" : ""}'>` +
           new Date(item.timestamp).getDate() +
           " " +
           monthNames[new Date(item.timestamp).getMonth()] +
@@ -142,8 +144,9 @@ function displayThoughts(items) {
           ? ""
           : `<div class='itemTag' onClick='filterThoughts("tag", "${item.tag}")'>#${item.tag}</div>`;
 
+      const isNewItem = newItemTimestamp === item.timestamp;
       itemsList +=
-        `<div class='item'><img class='itemSentiment' onClick='filterThoughts("mood", "${item.mood}")' src='assets/` +
+        `<div class='item${isNewItem ? " new" : ""}' data-timestamp='${item.timestamp}'><img class='itemSentiment' onClick='filterThoughts("mood", "${item.mood}")' src='assets/` +
         item.mood +
         ".png' alt='" +
         item.mood +
@@ -152,7 +155,7 @@ function displayThoughts(items) {
         itemTag +
         "</div><div class='itemDelete' onClick='deleteItem(" +
         item.timestamp +
-        ")'></div></div><div class='itemText'>" +
+        ")'></div></div><div class='itemText'>" +
         item.text +
         "</div></div></div>";
     }
@@ -161,11 +164,132 @@ function displayThoughts(items) {
   }
 }
 
+function addNewItemToList(timestamp, tag, mood, text) {
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+
+  const date = new Date(timestamp);
+  const dateStr = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  const timeString = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const listElement = document.getElementById("list");
+
+  const emptyState = listElement.querySelector("#emptyState");
+  if (emptyState) {
+    emptyState.remove();
+  }
+
+  const existingFirstDate = listElement.querySelector(".date");
+
+  const needsNewDate = !existingFirstDate || existingFirstDate.textContent.trim() !== dateStr;
+
+  if (needsNewDate) {
+    const dateElement = document.createElement("div");
+    dateElement.className = "date new";
+    dateElement.textContent = dateStr;
+    listElement.insertBefore(dateElement, listElement.firstChild);
+  }
+
+  const existingItems = Array.from(listElement.querySelectorAll(".item"));
+  const oldPositions = existingItems.map(item => item.getBoundingClientRect().top);
+
+  const itemElement = document.createElement("div");
+  itemElement.className = "item new";
+  itemElement.dataset.timestamp = timestamp;
+
+  const itemTag = tag === "" ? "" : `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
+
+  itemElement.innerHTML = `<img class='itemSentiment' onClick='filterThoughts("mood", "${mood}")' src='assets/${mood}.png' alt='${mood}' /><div class='itemContent'><div class='itemHeader'><div class='itemData'>${timeString}${itemTag}</div><div class='itemDelete' onClick='deleteItem(${timestamp})'></div></div><div class='itemText'>${text}</div></div>`;
+
+  const firstItem = listElement.querySelector(".item");
+  if (firstItem) {
+    listElement.insertBefore(itemElement, firstItem);
+  } else {
+    listElement.appendChild(itemElement);
+  }
+
+  existingItems.forEach((item, index) => {
+    const newPosition = item.getBoundingClientRect().top;
+    const delta = oldPositions[index] - newPosition;
+
+    if (delta !== 0) {
+      item.style.transform = `translateY(${delta}px)`;
+      item.style.transition = 'none';
+
+      requestAnimationFrame(() => {
+        item.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.transform = 'translateY(0)';
+      });
+    }
+  });
+
+  db.thoughts.count().then((count) => {
+    const counter = count !== 1 ? `${count} RECORDS` : `${count} RECORD`;
+    document.getElementById("listFilter").innerHTML = counter;
+    document.getElementById("listHeader").style.display = "flex";
+  });
+
+  showTags();
+}
+
 function deleteItem(timestamp) {
   const confirmDelete = confirm("Are you sure you want to delete this?");
   if (confirmDelete) {
-    db.thoughts.delete(timestamp).then(getAndDisplayThoughts);
-    umami.track("record deleted");
+    const itemToDelete = document.querySelector(`.item[data-timestamp="${timestamp}"]`);
+
+    if (itemToDelete) {
+      const listElement = document.getElementById("list");
+
+      const allItems = Array.from(listElement.querySelectorAll(".item"));
+      const deleteIndex = allItems.indexOf(itemToDelete);
+      const itemsBelow = allItems.slice(deleteIndex + 1);
+      const oldPositions = itemsBelow.map(item => item.getBoundingClientRect().top);
+
+      itemToDelete.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
+      itemToDelete.style.opacity = '0';
+      itemToDelete.style.transform = 'translateX(-20px)';
+
+      setTimeout(() => {
+        db.thoughts.delete(timestamp).then(() => {
+          itemToDelete.remove();
+
+          itemsBelow.forEach((item, index) => {
+            const newPosition = item.getBoundingClientRect().top;
+            const delta = oldPositions[index] - newPosition;
+
+            if (delta !== 0) {
+              item.style.transform = `translateY(${delta}px)`;
+              item.style.transition = 'none';
+
+              requestAnimationFrame(() => {
+                item.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                item.style.transform = 'translateY(0)';
+              });
+            }
+          });
+
+          db.thoughts.count().then((count) => {
+            if (count === 0) {
+              document.getElementById("list").innerHTML =
+                "<div id='emptyState'><img src='assets/empty.png' alt='smthmind logo'/><p>Record your thoughts and mood for reflection. Everything is stored locally in your browser. Export data when you need it.</p></div>";
+              document.getElementById("listHeader").style.display = "none";
+            } else {
+              const counter = count !== 1 ? `${count} RECORDS` : `${count} RECORD`;
+              document.getElementById("listFilter").innerHTML = counter;
+            }
+          });
+
+          showTags();
+        });
+
+        umami.track("record deleted");
+      }, 200);
+    }
   }
 }
 
