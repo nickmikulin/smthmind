@@ -79,13 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const app = document.querySelector('.app');
 
     function resizeApp() {
-      const vv = window.visualViewport;
-      app.style.height = vv.height + 'px';
-      app.style.transform = `translateY(${vv.offsetTop}px)`;
+      app.style.height = window.visualViewport.height + 'px';
     }
 
     window.visualViewport.addEventListener('resize', resizeApp);
-    window.visualViewport.addEventListener('scroll', resizeApp);
     resizeApp();
   }
 });
