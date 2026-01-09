@@ -68,7 +68,7 @@ function getAndDisplayThoughts() {
         document.getElementById("clearFilter").style.display = "none";
         document.getElementById("listFilter").innerHTML = counter;
         document.getElementById("menu").style.display = "flex";
-        document.getElementById("filters").innerHTML = showTags();
+        showTags();
       }
     });
 }
@@ -88,7 +88,7 @@ function filterThoughts(filter, value) {
           : `#${value} [${count}]`;
       document.getElementById("menu").style.display = "none";
       document.getElementById("clearFilter").style.display = "block";
-      document.getElementById("filters").style.display = "none";
+      document.getElementById("filters").innerHTML = "";
     });
 }
 
@@ -177,7 +177,6 @@ function showTags() {
         return `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
       });
     document.getElementById("filters").innerHTML = tagsList.join("");
-    document.getElementById("filters").style.display = "flex";
   });
 }
 

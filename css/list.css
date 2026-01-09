@@ -49,6 +49,10 @@
   color: var(--text-secondary);
 }
 
+#filters:empty {
+  display: none;
+}
+
 #list {
   display: flex;
   flex-direction: column;
