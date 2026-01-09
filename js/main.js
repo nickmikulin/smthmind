@@ -41,14 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
             mood: itemMood,
             text: itemText,
           })
-          .then(getAndDisplayThoughts);
+          .then(() => {
+            document.getElementById("newItemText").value = "";
+            document.getElementById("newItemTag").value = "";
+            document.querySelector(
+              `input[name="sentiment"]:checked`
+            ).checked = false;
+            getAndDisplayThoughts();
+          });
         umami.track("record added", { mood: itemMood });
-
-        document.getElementById("newItemText").value = "";
-        document.getElementById("newItemTag").value = "";
-        document.querySelector(
-          `input[name="sentiment"]:checked`
-        ).checked = false;
       }
     });
 });
