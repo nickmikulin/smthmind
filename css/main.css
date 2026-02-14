@@ -30,7 +30,7 @@ body {
   width: 40%;
   height: 100%;
   max-height: 100svh;
-  padding: var(--space-md) 0 var(--space-md) var(--space-md);
+  padding: var(--space-sm) 0;
 
   outline: var(--border-width) var(--border) solid;
 }
@@ -90,26 +90,28 @@ a {
 
 @media (max-width: 920px) {
   .app {
-    flex-direction: column-reverse;
+    display: block;
   }
 
   #newItem {
     position: fixed;
-    bottom: 0;
-    width: 100%;
+    width: calc(100vw - 2 * var(--space-xs));
+    margin-left: var(--space-xs);
+    bottom: var(--space-xs);
     height: 33svh;
 
-    padding-top: var(--space-sm);
-    padding-bottom: var(--space-md);
+    padding: var(--space-xs) 0;
+    border-radius: 1rem;
+
+    background-color: #312e2dcc;
+    backdrop-filter: blur(10px);
 
     z-index: 1;
   }
 
-  #wrapper {
-    flex: 1;
-    margin-bottom: 33svh;
+  #listContainer {
+    padding-bottom: 33svh;
 
-    height: 0;
     transition: opacity 0.2s ease-out;
   }
 

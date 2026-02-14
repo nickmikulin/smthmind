@@ -1,150 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content, maximum-scale=1.0, user-scalable=no"
+    />
 
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/newItem.css">
-    <link rel="stylesheet" href="css/list.css">
-    <link rel="stylesheet" href="css/empty.css">
-    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/newItem.css" />
+    <link rel="stylesheet" href="css/list.css" />
+    <link rel="stylesheet" href="css/empty.css" />
+    <link rel="stylesheet" href="css/animations.css" />
 
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
-    <link rel="icon" href="/favicon.ico" sizes="32x32">
-    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <!-- 180×180 -->
 
     <link rel="canonical" href="https://smthmind.com" />
-    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="manifest" href="manifest.webmanifest" />
 
     <title>Something from Your Mind</title>
-    <meta name="application-name" content="smthmind">
-    <meta name="description"
-      content="A space to collect your thoughts locally on your device and revisit them for reflection">
+    <meta name="application-name" content="smthmind" />
+    <meta
+      name="description"
+      content="A space to collect your thoughts locally on your device and revisit them for reflection"
+    />
 
-    <meta property="og:url" content="https://smthmind.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Something from Your Mind">
-    <meta property="og:description"
-      content="A space to collect your thoughts locally on your device and revisit them for reflection">
-    <meta property="og:image" content="https://smthmind.com/assets/meta-image.png">
+    <meta property="og:url" content="https://smthmind.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Something from Your Mind" />
+    <meta
+      property="og:description"
+      content="A space to collect your thoughts locally on your device and revisit them for reflection"
+    />
+    <meta
+      property="og:image"
+      content="https://smthmind.com/assets/meta-image.png"
+    />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="smthmind.com">
-    <meta property="twitter:url" content="https://smthmind.com/">
-    <meta name="twitter:title" content="Something from Your Mind">
-    <meta name="twitter:description"
-      content="A space to collect your thoughts locally on your device and revisit them for reflection">
-    <meta name="twitter:image" content="https://smthmind.com/assets/meta-image.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="smthmind.com" />
+    <meta property="twitter:url" content="https://smthmind.com/" />
+    <meta name="twitter:title" content="Something from Your Mind" />
+    <meta
+      name="twitter:description"
+      content="A space to collect your thoughts locally on your device and revisit them for reflection"
+    />
+    <meta
+      name="twitter:image"
+      content="https://smthmind.com/assets/meta-image.png"
+    />
 
-    <script defer src="https://cloud.umami.is/script.js"
-      data-website-id="44a9c031-8e10-419b-a75e-ce79805e308d"></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="44a9c031-8e10-419b-a75e-ce79805e308d"
+    ></script>
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="smthmind">
-    <meta name="apple-mobile-web-app-title" content="smthmind">
-    <meta name="theme-color" content="#eee" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#303030" media="(prefers-color-scheme: dark)">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-starturl" content="https://smthmind.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="smthmind" />
+    <meta name="apple-mobile-web-app-title" content="smthmind" />
+    <meta
+      name="theme-color"
+      content="#eee"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#303030"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-starturl" content="https://smthmind.com" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
   </head>
 
-<body>
-  <div class="app">
-    <form id="newItem">
-      <div id="tagWrapper">
-        #
-        <input id="newItemTag" type="text" placeholder="tag" autocomplete="on" name="tag" maxlength="16" />
-      </div>
-
-      <textarea id="newItemText" placeholder="What's on your mind?"></textarea>
-
-      <div class="newItemControls">
-        <div class="sentimentSelect" id="moodCheck">
-
-          <label for="angry" class="sentimentLabel">
-            <input type="radio" id="angry" name="sentiment" value="angry">
-            <img src="assets/angry.png" alt="angry" />
-          </label>
-
-          <label for="sad" class="sentimentLabel">
-            <input type="radio" id="sad" name="sentiment" value="sad">
-            <img src="assets/sad.png" alt="sad" />
-          </label>
-
-          <label for="neutral" class="sentimentLabel">
-            <input type="radio" id="neutral" name="sentiment" value="neutral">
-            <img src="assets/neutral.png" alt="neutral" />
-          </label>
-
-          <label for="good" class="sentimentLabel">
-            <input type="radio" id="good" name="sentiment" value="good">
-            <img src="assets/good.png" alt="good" />
-          </label>
-
-          <label for="happy" class="sentimentLabel">
-            <input type="radio" id="happy" name="sentiment" value="happy">
-            <img src="assets/happy.png" alt="happy" />
-          </label>
-        </div>
-
-        <button id="actionButton">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 44 44">
-            <path d="M22 0c12.15 0 22 9.85 22 22s-9.85 22-22 22S0 34.15 0 22 9.85 0 22 0Zm1.816 13.92 5.117 6.58H11v3h17.933l-5.117 6.58 2.368 1.84 7-9L33.9 22l-.716-.92-7-9-2.368 1.84Z"/>
-          </svg>
-        </button>
-
-      </div>
-    </form>
-
-    <div id="listContainer">
-      <div id="top">
-        <div id="listHeader">
-          <span class="button" id='clearFilter' onClick='getAndDisplayThoughts()'>Back</span>
-          <div id="listFilter"></div>
-          <div id="menu">
-            <div class="button" id="exportLink">↓Export</div>
-            <div class="button"><a href="https://tally.so/r/3E0OjL" target="_blank">↗Feedback</a></div>
+  <body>
+    <div class="app">
+      <form id="newItem">
+        <div id="tagWrapper">
+          <div id="tagLabel">
+            <span>#</span>
+            <input
+              id="newItemTag"
+              type="text"
+              placeholder="tag"
+              autocomplete="on"
+              name="tag"
+              maxlength="16"
+            />
           </div>
         </div>
-        <div id="filters"></div>
+
+        <textarea
+          id="newItemText"
+          placeholder="What's on your mind?"
+        ></textarea>
+
+        <div class="newItemControls">
+          <div class="sentimentSelect" id="moodCheck">
+            <label for="angry" class="sentimentLabel">
+              <input type="radio" id="angry" name="sentiment" value="angry" />
+              <img src="assets/angry.png" alt="angry" />
+            </label>
+
+            <label for="sad" class="sentimentLabel">
+              <input type="radio" id="sad" name="sentiment" value="sad" />
+              <img src="assets/sad.png" alt="sad" />
+            </label>
+
+            <label for="neutral" class="sentimentLabel">
+              <input
+                type="radio"
+                id="neutral"
+                name="sentiment"
+                value="neutral"
+              />
+              <img src="assets/neutral.png" alt="neutral" />
+            </label>
+
+            <label for="good" class="sentimentLabel">
+              <input type="radio" id="good" name="sentiment" value="good" />
+              <img src="assets/good.png" alt="good" />
+            </label>
+
+            <label for="happy" class="sentimentLabel">
+              <input type="radio" id="happy" name="sentiment" value="happy" />
+              <img src="assets/happy.png" alt="happy" />
+            </label>
+          </div>
+
+          <button id="actionButton">
+            <div class="actionCircle">↩</div>
+          </button>
+        </div>
+      </form>
+
+      <div id="listContainer">
+        <div id="top">
+          <div id="listHeader">
+            <span
+              class="button"
+              id="clearFilter"
+              onClick="getAndDisplayThoughts()"
+              >Back</span
+            >
+            <div id="listFilter"></div>
+            <div id="menu">
+              <div class="button" id="exportLink">↓Export</div>
+              <div class="button">
+                <a href="https://tally.so/r/3E0OjL" target="_blank"
+                  >↗Feedback</a
+                >
+              </div>
+            </div>
+          </div>
+          <div id="filters"></div>
+        </div>
+        <div id="list"></div>
       </div>
-      <div id="list"></div>
     </div>
 
-  </div>
+    <script src="js/dexie.min.js"></script>
+    <script src="js/dexie-export-import.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 
-  <script src="js/dexie.min.js"></script>
-  <script src="js/dexie-export-import.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/shortcuts.js"></script>
 
-  <script src="js/main.js"></script>
-  <script src="js/shortcuts.js"></script>
-
-  <script>
-    // Register service worker for PWA functionality
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then((registration) => {
-            console.log('Service Worker registered successfully:', registration.scope);
-          })
-          .catch((error) => {
-            console.log('Service Worker registration failed:', error);
-          });
-      });
-    }
-  </script>
-
-</body>
-
+    <script>
+      // Register service worker for PWA functionality
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered successfully:",
+                registration.scope,
+              );
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+  </body>
 </html>
