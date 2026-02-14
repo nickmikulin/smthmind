@@ -1,4 +1,4 @@
-const CACHE_NAME = `smthmind-v3`;
+const CACHE_NAME = `smthmind-v4`;
 const urlsToCache = [
   "/",
   "/index.html",
@@ -12,6 +12,11 @@ const urlsToCache = [
   "/js/shortcuts.js",
   "/js/dexie.min.js",
   "/js/dexie-export-import.js",
+  "/assets/angry.png",
+  "/assets/sad.png",
+  "/assets/neutral.png",
+  "/assets/good.png",
+  "/assets/happy.png",
   "/assets/icon512.png",
   "/assets/icon.svg",
   "/assets/apple-touch-icon.png",
