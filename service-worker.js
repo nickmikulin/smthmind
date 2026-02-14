@@ -1,4 +1,4 @@
-const CACHE_NAME = `smthmind-v1`;
+const CACHE_NAME = `smthmind-v2`;
 const urlsToCache = [
   "/",
   "/index.html",
