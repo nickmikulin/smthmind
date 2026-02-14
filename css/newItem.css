@@ -1,15 +1,3 @@
-#newItem {
-  display: flex;
-  flex-direction: column;
-
-  width: 40%;
-  height: 100%;
-  max-height: 100svh;
-  padding: var(--space-md) 0 var(--space-md) var(--space-md);
-
-  outline: var(--border-width) var(--border) solid;
-}
-
 #tagWrapper {
   display: flex;
   flex-direction: row;
@@ -135,18 +123,6 @@ input[type="radio"]:checked ~ img {
 }
 
 @media (max-width: 920px) {
-  #newItem {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 33svh;
-
-    padding-top: var(--space-sm);
-    padding-bottom: var(--space-md);
-
-    z-index: 1;
-  }
-
   #newItemText {
     font-size: var(--font-lg);
     line-height: var(--line-height-base);
