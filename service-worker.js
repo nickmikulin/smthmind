@@ -1,4 +1,4 @@
-const CACHE_NAME = `smthmind-v2`;
+const CACHE_NAME = `smthmind-v3`;
 const urlsToCache = [
   "/",
   "/index.html",
@@ -23,7 +23,7 @@ self.addEventListener("install", (event) => {
     caches
       .open(CACHE_NAME)
       .then((cache) => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting())
+      .then(() => self.skipWaiting()),
   );
 });
 
@@ -37,10 +37,10 @@ self.addEventListener("activate", (event) => {
             if (cacheName !== CACHE_NAME) {
               return caches.delete(cacheName);
             }
-          })
+          }),
         );
       })
-      .then(() => self.clients.claim())
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -66,6 +66,6 @@ self.addEventListener("fetch", (event) => {
 
         return response;
       });
-    })
+    }),
   );
 });
