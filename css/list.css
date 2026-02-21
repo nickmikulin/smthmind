@@ -71,7 +71,7 @@
   justify-content: flex-start;
 
   width: 100%;
-  padding: var(--space-md) var(--space-md) 0 var(--space-lg);
+  padding: var(--space-md) var(--space-md) 0 var(--space-md);
 
   font-size: var(--font-sm);
   color: var(--text-secondary);

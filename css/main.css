@@ -95,13 +95,12 @@ a {
 
   #newItem {
     position: fixed;
-    width: calc(100vw - 2 * var(--space-xs));
-    margin-left: var(--space-xs);
-    bottom: var(--space-xs);
+    width: 100%;
+    bottom: 0;
     height: 33svh;
 
     padding: var(--space-xs) 0;
-    border-radius: 1rem;
+    border-radius: 1rem 1rem 0 0;
 
     background-color: #312e2dcc;
     backdrop-filter: blur(10px);
