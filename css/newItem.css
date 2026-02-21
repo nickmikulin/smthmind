@@ -153,14 +153,14 @@ input[type="radio"]:checked ~ img {
   #newItemText {
     font-size: var(--font-lg);
     line-height: var(--line-height-base);
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
   }
 
   #tagWrapper {
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-md);
   }
 
   .newItemControls {
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-md);
   }
 }

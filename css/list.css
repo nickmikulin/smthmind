@@ -71,7 +71,7 @@
   justify-content: flex-start;
 
   width: 100%;
-  padding: var(--space-md) var(--space-md) 0 var(--space-md);
+  padding: var(--space-md) var(--space-md) 0 var(--space-lg);
 
   font-size: var(--font-sm);
   color: var(--text-secondary);
@@ -165,6 +165,10 @@
 }
 
 @media (max-width: 920px) {
+  .date {
+    padding-left: var(--space-md);
+  }
+
   #listHeader,
   #filters {
     padding-left: var(--space-md);
@@ -173,7 +177,7 @@
 
   .item {
     padding: var(--space-sm) var(--space-md);
-    gap: var(--space-xs);
+    gap: var(--space-sm);
   }
 
   .menuItem:hover,
