@@ -160,21 +160,17 @@ function displayThoughts(items, newItemTimestamp = null) {
   } else {
     for (let i = 0; i < items.length; i++) {
       let item = items[i];
-      let newDate = new Date(item.timestamp).getDate();
+      let dateStr = `${new Date(item.timestamp).getDate()} ${monthNames[new Date(item.timestamp).getMonth()]} ${new Date(item.timestamp).getFullYear()}`;
 
-      if (newDate != oldDate) {
+      if (dateStr != oldDate) {
         const isNewDate = i === 0 && newItemTimestamp === item.timestamp;
         itemsList +=
           `<div class='date${isNewDate ? " new" : ""}'>` +
-          new Date(item.timestamp).getDate() +
-          " " +
-          monthNames[new Date(item.timestamp).getMonth()] +
-          " " +
-          new Date(item.timestamp).getFullYear() +
+          dateStr +
           "</div>";
       }
 
-      oldDate = new Date(item.timestamp).getDate();
+      oldDate = dateStr;
 
       const timeString = new Date(item.timestamp).toLocaleTimeString([], {
         hour: "2-digit",
@@ -199,7 +195,7 @@ function displayThoughts(items, newItemTimestamp = null) {
         "' /><div class='itemContent'><div class='itemHeader'><div class='itemData'>" +
         timeString +
         itemTag +
-        "</div><div class='itemDelete' onClick='deleteItem(" +
+        "</div><div class='itemDelete' onClick='deleteItem(event, " +
         item.timestamp +
         ")'></div></div><div class='itemText'>" +
         item.text +
@@ -254,9 +250,9 @@ function addNewItemToList(timestamp, tag, mood, text) {
     listElement.insertBefore(dateElement, listElement.firstChild);
   }
 
-  const existingItems = Array.from(listElement.querySelectorAll(".item"));
-  const oldPositions = existingItems.map(
-    (item) => item.getBoundingClientRect().top
+  const existingElements = Array.from(listElement.children);
+  const oldPositions = existingElements.map(
+    (el) => el.getBoundingClientRect().top
   );
 
   const itemElement = document.createElement("div");
@@ -268,26 +264,26 @@ function addNewItemToList(timestamp, tag, mood, text) {
       ? ""
       : `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
 
-  itemElement.innerHTML = `<img class='itemSentiment' onClick='filterThoughts("mood", "${mood}")' src='assets/${mood}.png' alt='${mood}' /><div class='itemContent'><div class='itemHeader'><div class='itemData'>${timeString}${itemTag}</div><div class='itemDelete' onClick='deleteItem(${timestamp})'></div></div><div class='itemText'>${text}</div></div>`;
+  itemElement.innerHTML = `<img class='itemSentiment' onClick='filterThoughts("mood", "${mood}")' src='assets/${mood}.png' alt='${mood}' /><div class='itemContent'><div class='itemHeader'><div class='itemData'>${timeString}${itemTag}</div><div class='itemDelete' onClick='deleteItem(event, ${timestamp})'></div></div><div class='itemText'>${text}</div></div>`;
 
-  const firstItem = listElement.querySelector(".item");
-  if (firstItem) {
-    listElement.insertBefore(itemElement, firstItem);
+  const firstDate = listElement.querySelector(".date");
+  if (firstDate) {
+    listElement.insertBefore(itemElement, firstDate.nextSibling);
   } else {
     listElement.appendChild(itemElement);
   }
 
-  existingItems.forEach((item, index) => {
-    const newPosition = item.getBoundingClientRect().top;
+  existingElements.forEach((el, index) => {
+    const newPosition = el.getBoundingClientRect().top;
     const delta = oldPositions[index] - newPosition;
 
     if (delta !== 0) {
-      item.style.transform = `translateY(${delta}px)`;
-      item.style.transition = "none";
+      el.style.transform = `translateY(${delta}px)`;
+      el.style.transition = "none";
 
       requestAnimationFrame(() => {
-        item.style.transition = "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-        item.style.transform = "translateY(0)";
+        el.style.transition = "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+        el.style.transform = "translateY(0)";
       });
     }
   });
@@ -301,7 +297,8 @@ function addNewItemToList(timestamp, tag, mood, text) {
   showTags();
 }
 
-function deleteItem(timestamp) {
+function deleteItem(event, timestamp) {
+  if (event) event.stopPropagation();
   const confirmDelete = confirm("Are you sure you want to delete this?");
   if (confirmDelete) {
     const itemToDelete = document.querySelector(
@@ -311,11 +308,11 @@ function deleteItem(timestamp) {
     if (itemToDelete) {
       const listElement = document.getElementById("list");
 
-      const allItems = Array.from(listElement.querySelectorAll(".item"));
-      const deleteIndex = allItems.indexOf(itemToDelete);
-      const itemsBelow = allItems.slice(deleteIndex + 1);
-      const oldPositions = itemsBelow.map(
-        (item) => item.getBoundingClientRect().top
+      const allElements = Array.from(listElement.children);
+      const deleteIndex = allElements.indexOf(itemToDelete);
+      const elementsBelow = allElements.slice(deleteIndex + 1);
+      const oldPositions = elementsBelow.map(
+        (el) => el.getBoundingClientRect().top
       );
 
       itemToDelete.style.transition =
@@ -325,20 +322,30 @@ function deleteItem(timestamp) {
 
       setTimeout(() => {
         db.thoughts.delete(timestamp).then(() => {
+          const nextElement = itemToDelete.nextElementSibling;
+          const prevElement = itemToDelete.previousElementSibling;
+          
           itemToDelete.remove();
 
-          itemsBelow.forEach((item, index) => {
-            const newPosition = item.getBoundingClientRect().top;
+          // Check if we need to remove an orphaned date header
+          if (prevElement && prevElement.classList.contains('date')) {
+            if (!nextElement || nextElement.classList.contains('date')) {
+              prevElement.remove();
+            }
+          }
+
+          elementsBelow.forEach((el, index) => {
+            const newPosition = el.getBoundingClientRect().top;
             const delta = oldPositions[index] - newPosition;
 
             if (delta !== 0) {
-              item.style.transform = `translateY(${delta}px)`;
-              item.style.transition = "none";
+              el.style.transform = `translateY(${delta}px)`;
+              el.style.transition = "none";
 
               requestAnimationFrame(() => {
-                item.style.transition =
+                el.style.transition =
                   "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-                item.style.transform = "translateY(0)";
+                el.style.transform = "translateY(0)";
               });
             }
           });

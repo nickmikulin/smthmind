@@ -72,18 +72,10 @@
 
   width: 100%;
   padding: var(--space-md) var(--space-md) 0 var(--space-lg);
-  margin-top: var(--space-md);
 
   font-size: var(--font-sm);
   color: var(--text-secondary);
   font-weight: 500;
-
-  border-top: var(--border) var(--border-width) solid;
-}
-
-.date:first-of-type {
-  margin-top: 0;
-  border-top: none;
 }
 
 .item {
