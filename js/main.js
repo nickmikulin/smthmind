@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let moodCheck = document.querySelector(`input[name="sentiment"]:checked`);
 
+      if (!itemText.trim()) {
+        const textArea = document.getElementById("newItemText");
+        textArea.style.animation = "none";
+        textArea.offsetHeight;
+        textArea.style.animation = "shake 0.5s ease-in-out";
+        return;
+      }
+
       if (moodCheck == null) {
         let moodElement = document.getElementById("moodCheck");
 
@@ -48,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector(
               `input[name="sentiment"]:checked`
             ).checked = false;
+            updateButtonVisibility();
             document.activeElement.blur();
             addNewItemToList(timestamp, itemTag, itemMood, itemText);
           });
@@ -57,16 +66,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".sentimentLabel").forEach((label) => {
     label.addEventListener("mousedown", (e) => {
-      const activeElement = document.activeElement;
       e.preventDefault();
-      label.querySelector('input[type="radio"]').checked = true;
-      if (
-        activeElement &&
-        (activeElement.id === "newItemText" ||
-          activeElement.id === "newItemTag")
-      ) {
-        activeElement.focus();
+      const radio = label.querySelector('input[type="radio"]');
+      const app = document.querySelector(".app");
+      const textarea = document.getElementById("newItemText");
+      const wasChecked = radio.checked;
+
+      if (wasChecked) {
+        // Always unselect if already checked
+        radio.checked = false;
+        updateButtonVisibility();
+        if (window.innerWidth <= 920) {
+          app.classList.remove("keyboard-open");
+          textarea.blur();
+        }
+      } else {
+        // Select and expand
+        radio.checked = true;
+        updateButtonVisibility();
+        
+        if (window.innerWidth <= 920) {
+          if (!app.classList.contains("keyboard-open")) {
+            app.classList.add("keyboard-open");
+          }
+          setTimeout(() => textarea.focus(), 100);
+        } else {
+          textarea.focus();
+        }
       }
+    });
+
+    label.addEventListener("click", (e) => {
+      e.preventDefault();
     });
   });
 
@@ -78,6 +109,19 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("newItemText"),
     document.getElementById("newItemTag"),
   ];
+
+  const textArea = document.getElementById("newItemText");
+  const formElement = document.getElementById("newItem");
+
+  function updateButtonVisibility() {
+    if (textArea.value.trim().length > 0) {
+      formElement.classList.add("has-content");
+    } else {
+      formElement.classList.remove("has-content");
+    }
+  }
+
+  textArea.addEventListener("input", updateButtonVisibility);
 
   inputs.forEach((input) => {
     input.addEventListener("focus", () => {

@@ -69,11 +69,31 @@
 }
 
 .sentimentSelect {
+  position: relative;
   display: flex;
   flex-direction: row;
   height: 3rem;
-  gap: 0.1rem;
-  margin-left: -0.25rem;
+  margin-left: -0.1rem;
+}
+
+#moodLabel {
+  display: none;
+  position: absolute;
+  top: -1.4rem;
+  left: 0.4rem;
+  
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  opacity: 1;
+  
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sentimentSelect:has(input:checked) #moodLabel {
+  opacity: 0;
+  transform: translateY(-5px);
+  visibility: hidden;
 }
 
 .sentimentLabel {
@@ -89,8 +109,8 @@
   height: 2.75rem;
   width: 2.75rem;
 
-  opacity: 0.2;
-  filter: grayscale(1) sepia(0.25);
+  opacity: 1;
+  filter: none;
   transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
@@ -102,15 +122,20 @@ input[type="radio"] {
 
 .sentimentLabel:hover img {
   opacity: 1;
-  filter: grayscale(0);
+  filter: none;
+  transform: scale(1.1);
 }
 
-input[type="radio"]:checked ~ img {
+.sentimentSelect:has(input:checked) .sentimentLabel img {
+  opacity: 0.2;
+  filter: grayscale(1) sepia(0.25);
+}
+
+.sentimentLabel:has(input:checked) img {
   width: 3.25rem;
   height: 3.25rem;
-
-  opacity: 1;
-  filter: grayscale(0);
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 #actionButton {
@@ -122,18 +147,30 @@ input[type="radio"]:checked ~ img {
   border: none;
   border-radius: 1.5rem;
   background: none;
+  transition: all 0.2s ease;
+  
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#newItem.has-content #actionButton {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .actionCircle {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--button-bg);
-  color: var(--text-primary);
+  background: var(--text-primary);
+  color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   transition: scale 0.15s ease;
 }
 
@@ -151,16 +188,76 @@ input[type="radio"]:checked ~ img {
 
 @media (max-width: 920px) {
   #newItemText {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    height: 0;
+    padding: 0;
     font-size: var(--font-lg);
-    line-height: var(--line-height-base);
-    padding: var(--space-xs) var(--space-md);
+    transition: opacity 0.2s ease;
+  }
+
+  .app.keyboard-open #newItemText {
+    opacity: 1;
+    visibility: visible;
+    max-height: none;
+    padding: 0 var(--space-md);
+    flex: none;
+    height: 30svh;
+    margin-top: var(--space-xs);
   }
 
   #tagWrapper {
+    opacity: 0;
+    visibility: hidden;
+    padding: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .app.keyboard-open #tagWrapper {
+    opacity: 1;
+    visibility: visible;
     padding: 0 var(--space-md);
+    height: auto;
   }
 
   .newItemControls {
-    padding: 0 var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    transition: all 0.3s ease;
+    padding: 0 var(--space-sm);
+    position: relative;
+  }
+
+  .app.keyboard-open .newItemControls {
+    justify-content: space-between;
+  }
+
+  #actionButton {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+    position: absolute;
+    right: var(--space-sm);
+  }
+
+  .app.keyboard-open #newItem.has-content #actionButton {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+    position: relative;
+    right: auto;
+  }
+
+  #moodLabel {
+    display: block;
+  }
+
+  input[type="radio"]:checked ~ img {
+    opacity: 1;
   }
 }
