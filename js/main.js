@@ -25,12 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let moodCheck = document.querySelector(`input[name="sentiment"]:checked`);
 
-      if (moodCheck == null) {
-        let moodElement = document.getElementById("moodCheck");
+      if (moodCheck == null || itemText.trim() === "") {
+        if (moodCheck == null) {
+          let moodElement = document.getElementById("moodCheck");
+          moodElement.style.animation = "none";
+          moodElement.offsetHeight;
+          moodElement.style.animation = "shake 1s ease-in-out";
+        }
 
-        moodElement.style.animation = "none";
-        moodElement.offsetHeight;
-        moodElement.style.animation = "shake 1s ease-in-out";
+        if (itemText.trim() === "") {
+          let textElement = document.getElementById("newItemText");
+          textElement.style.animation = "none";
+          textElement.offsetHeight;
+          textElement.style.animation = "shake 1s ease-in-out";
+        }
       } else {
         let itemMood = moodCheck.value;
         const timestamp = Date.now();
