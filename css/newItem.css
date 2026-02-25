@@ -89,7 +89,7 @@
   height: 2.75rem;
   width: 2.75rem;
 
-  opacity: 0.2;
+  opacity: 0.33;
   filter: grayscale(1) sepia(0.25);
   transition: all 0.2s cubic-bezier(0.3, 0, 0.2, 1);
 }
@@ -100,9 +100,11 @@ input[type="radio"] {
   pointer-events: none;
 }
 
-.sentimentLabel:hover img {
-  opacity: 1;
-  filter: grayscale(0);
+@media (hover: hover) {
+  .sentimentLabel:hover img {
+    opacity: 1;
+    filter: grayscale(0);
+  }
 }
 
 input[type="radio"]:checked ~ img {
@@ -128,8 +130,8 @@ input[type="radio"]:checked ~ img {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--button-bg);
-  color: var(--text-primary);
+  background: var(--text-primary);
+  color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,12 +139,16 @@ input[type="radio"]:checked ~ img {
   transition: scale 0.15s ease;
 }
 
-#actionButton:hover {
-  cursor: pointer;
+@media (hover: hover) {
+  #actionButton:hover {
+    cursor: pointer;
+  }
 }
 
-#actionButton:hover .actionCircle {
-  scale: 1.25;
+@media (hover: hover) {
+  #actionButton:hover .actionCircle {
+    scale: 1.25;
+  }
 }
 
 #actionButton:active .actionCircle {

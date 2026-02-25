@@ -52,8 +52,10 @@ body {
   -webkit-user-select: none;
 }
 
-.button:hover {
-  color: var(--text-primary);
+@media (hover: hover) {
+  .button:hover {
+    color: var(--text-primary);
+  }
 }
 
 a {
