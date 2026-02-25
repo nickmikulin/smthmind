@@ -109,6 +109,7 @@ a {
   }
 
   #listContainer {
+    height: 100%;
     padding-bottom: 33svh;
 
     transition: opacity 0.2s ease-out;
