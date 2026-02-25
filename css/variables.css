@@ -5,13 +5,13 @@
     "calt" 1; /* fix for Chrome */
   line-height: var(--line-height-base);
 
-  color-scheme: dark;
+  color-scheme: light;
 
-  --background: #2a2929;
-  --text-primary: #ebe6e4;
-  --text-secondary: #7f7b7a;
-  --button-bg: #5d5a58;
-  --border: #302f2e;
+  --background: #eee;
+  --text-primary: #333;
+  --text-secondary: #999;
+  --button-bg: #e5e5e5;
+  --border: #ddd;
 
   --border-width: 1px;
 
@@ -29,4 +29,16 @@
 
   --card-rounded: 0.75rem;
   --button-rounded: 0.375rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --background: #2a2929;
+    --text-primary: #ebe6e4;
+    --text-secondary: #7f7b7a;
+    --button-bg: #5d5a58;
+    --border: #302f2e;
+  }
 }
