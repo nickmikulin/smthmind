@@ -112,7 +112,7 @@ function getAndDisplayThoughts(newItemTimestamp = null) {
         document.getElementById("clearFilter").style.display = "none";
         document.getElementById("listFilter").innerHTML = counter;
         document.getElementById("menu").style.display = "flex";
-        showTags();
+        showTags(items);
       }
     });
 }
@@ -371,16 +371,28 @@ function deleteItem(event, timestamp) {
   }
 }
 
-function showTags() {
-  const tags = db.thoughts.orderBy("tag").uniqueKeys();
-  tags.then((tags) => {
-    const tagsList = tags
-      .filter((tag) => tag != "")
-      .map((tag) => {
-        return `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
-      });
+function showTags(items) {
+  if (items) {
+    const tags = [];
+    const seen = new Set();
+    for (const item of items) {
+      if (item.tag && item.tag !== "" && !seen.has(item.tag)) {
+        seen.add(item.tag);
+        tags.push(item.tag);
+      }
+    }
+    const tagsList = tags.map((tag) => {
+      return `<div class='itemTag' onClick='filterThoughts("tag", "${tag}")'>#${tag}</div>`;
+    });
     document.getElementById("filters").innerHTML = tagsList.join("");
-  });
+  } else {
+    db.thoughts
+      .reverse()
+      .toArray()
+      .then((items) => {
+        showTags(items);
+      });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
