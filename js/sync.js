@@ -112,9 +112,13 @@ const Sync = (() => {
     }
   }
 
+  let syncInProgress = false;
+
   async function syncNow() {
     const c = getClient();
     if (!c || !signedInEmail) return;
+    if (syncInProgress) return;
+    syncInProgress = true;
 
     setSyncStatus("Syncing…");
     try {
@@ -129,6 +133,8 @@ const Sync = (() => {
       console.error("Sync failed:", error);
       setSyncStatus("Sync failed: " + describeError(error));
       updateSyncUI();
+    } finally {
+      syncInProgress = false;
     }
   }
 
@@ -188,7 +194,7 @@ const Sync = (() => {
       }));
 
     if (toInsert.length > 0) {
-      await db.thoughts.bulkAdd(toInsert);
+      await db.thoughts.bulkPut(toInsert);
       getAndDisplayThoughts();
     }
   }
