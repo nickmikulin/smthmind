@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/list.css" />
     <link rel="stylesheet" href="css/empty.css" />
     <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/sync.css" />
 
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -160,6 +161,7 @@
             >
             <div id="listFilter"></div>
             <div id="menu">
+              <div class="button" id="syncLink">↕Sync</div>
               <div class="button" id="exportLink">↓Export</div>
               <div class="button">
                 <a href="https://tally.so/r/3E0OjL" target="_blank"
@@ -178,8 +180,33 @@
     <script src="js/dexie-export-import.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 
+    <script src="js/sync-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/sync.js"></script>
     <script src="js/main.js"></script>
     <script src="js/shortcuts.js"></script>
+
+    <div id="syncPanel" hidden>
+      <div id="syncPanelContent">
+        <div id="syncClose" class="button">✕</div>
+        <div id="syncSignIn">
+          <p class="syncTitle">Sync your thoughts</p>
+          <p class="syncHint">Sign in with a magic link to sync entries across devices. Your data stays local unless you sign in.</p>
+          <form id="syncEmailForm">
+            <input id="syncEmailInput" type="email" placeholder="your@email.com" required />
+            <button id="syncEmailButton" type="submit">Send link</button>
+          </form>
+          <p id="syncStatus"></p>
+        </div>
+        <div id="syncSignedIn" style="display: none">
+          <p class="syncTitle">Synced</p>
+          <p class="syncHint" id="syncEmail"></p>
+          <p class="syncHint">Last sync: <span id="syncLastTime">–</span></p>
+          <button id="syncNowButton">Sync now</button>
+          <button id="syncSignOutButton" class="secondary">Sign out</button>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Register service worker for PWA functionality

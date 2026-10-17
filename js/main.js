@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ).checked = false;
             document.activeElement.blur();
             addNewItemToList(timestamp, itemTag, itemMood, itemText);
+            if (window.Sync) Sync.onEntryAdded(timestamp);
           });
         umami.track("record added", { mood: itemMood });
       }
@@ -330,6 +331,7 @@ function deleteItem(event, timestamp) {
 
       setTimeout(() => {
         db.thoughts.delete(timestamp).then(() => {
+          if (window.Sync) Sync.onEntryDeleted(timestamp);
           const nextElement = itemToDelete.nextElementSibling;
           const prevElement = itemToDelete.previousElementSibling;
           
@@ -421,3 +423,50 @@ document.addEventListener("DOMContentLoaded", () => {
 function progressCallback({ totalRows, completedRows }) {
   console.log(`Progress: ${completedRows} of ${totalRows} rows completed`);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const syncPanel = document.getElementById("syncPanel");
+  const syncLink = document.getElementById("syncLink");
+  const syncClose = document.getElementById("syncClose");
+  const syncEmailForm = document.getElementById("syncEmailForm");
+  const syncStatus = document.getElementById("syncStatus");
+  const syncNowButton = document.getElementById("syncNowButton");
+  const syncSignOutButton = document.getElementById("syncSignOutButton");
+
+  if (!window.Sync) return;
+
+  syncLink.addEventListener("click", () => {
+    syncPanel.hidden = false;
+  });
+
+  syncClose.addEventListener("click", () => {
+    syncPanel.hidden = true;
+  });
+
+  syncPanel.addEventListener("click", (event) => {
+    if (event.target === syncPanel) syncPanel.hidden = true;
+  });
+
+  syncEmailForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = document.getElementById("syncEmailInput").value.trim();
+    syncStatus.textContent = "Sending link…";
+    const result = await Sync.requestMagicLink(email);
+    syncStatus.textContent = result.error
+      ? result.error
+      : "Check your inbox for the sign-in link.";
+  });
+
+  syncNowButton.addEventListener("click", async () => {
+    syncStatus.textContent = "";
+    await Sync.syncNow();
+    const lastTime = document.getElementById("syncLastTime");
+    if (lastTime) lastTime.textContent = new Date().toLocaleString();
+  });
+
+  syncSignOutButton.addEventListener("click", async () => {
+    await Sync.signOut();
+  });
+
+  Sync.init();
+});
