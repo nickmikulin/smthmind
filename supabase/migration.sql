@@ -13,6 +13,11 @@ create table if not exists public.entries (
 
 alter table public.entries enable row level security;
 
+-- Table privileges for the Data API roles. Required because
+-- "Automatically expose new tables" is disabled on this project.
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.entries TO authenticated;
+GRANT SELECT ON public.entries TO anon;
+
 -- Each signed-in user can only read and write their own rows.
 create policy "entries own rows"
   on public.entries
