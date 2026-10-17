@@ -1,4 +1,4 @@
-const CACHE_NAME = `smthmind-v7`;
+const CACHE_NAME = `smthmind-v9`;
 const urlsToCache = [
   "/",
   "/index.html",
@@ -8,6 +8,9 @@ const urlsToCache = [
   "/css/list.css",
   "/css/empty.css",
   "/css/animations.css",
+  "/css/sync.css",
+  "/js/sync-config.js",
+  "/js/sync.js",
   "/js/main.js",
   "/js/shortcuts.js",
   "/js/dexie.min.js",

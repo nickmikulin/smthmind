@@ -1,0 +1,86 @@
+#syncPanel {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+#syncPanel[hidden] {
+  display: none;
+}
+
+#syncPanelContent {
+  position: relative;
+  width: min(90vw, 26rem);
+  padding: var(--space-lg);
+  border-radius: var(--card-rounded);
+  outline: var(--border-width) var(--border) solid;
+  background: var(--background);
+}
+
+#syncClose {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+}
+
+.syncTitle {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-md);
+}
+
+.syncHint {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+#syncEmailForm {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+#syncEmailInput {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: var(--font-sm);
+  border: var(--border-width) var(--border) solid;
+  border-radius: var(--button-rounded);
+  background: var(--button-bg);
+  color: var(--text-primary);
+}
+
+#syncEmailInput:focus {
+  outline: none;
+}
+
+#syncPanel button {
+  padding: 0.5rem 0.75rem;
+  font-size: var(--font-sm);
+  border: none;
+  border-radius: var(--button-rounded);
+  background: var(--text-primary);
+  color: var(--background);
+  cursor: pointer;
+}
+
+#syncPanel button.secondary {
+  background: var(--button-bg);
+  color: var(--text-primary);
+  margin-left: var(--space-xs);
+}
+
+#syncStatus {
+  min-height: 1rem;
+  margin: var(--space-xs) 0 0;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+#syncSignedIn button {
+  margin-top: var(--space-xs);
+}

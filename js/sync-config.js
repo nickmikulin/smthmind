@@ -1,0 +1,2 @@
+const SUPABASE_URL = "https://huwkbyqkdrzhdbmowtel.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1d2tieXFrZHJ6aGRibW93dGVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyNDgwMzIsImV4cCI6MjEwNzgyNDAzMn0.OCrydESNzle2F2EJR_jrqBuA5hzWj1YdakcV_0zp1pI";
