@@ -116,17 +116,32 @@ const Sync = (() => {
     const c = getClient();
     if (!c || !signedInEmail) return;
 
+    setSyncStatus("Syncing…");
     try {
       await pushLocalEntries(c);
       await pullRemoteEntries(c);
       await pushDeletes(c);
       await pullDeletes(c);
       await setSetting(SYNC_STATE, new Date().toISOString());
+      setSyncStatus("");
       updateSyncUI();
     } catch (error) {
       console.error("Sync failed:", error);
+      setSyncStatus("Sync failed: " + describeError(error));
       updateSyncUI();
     }
+  }
+
+  function describeError(error) {
+    if (!error) return "unknown error";
+    if (error.message) return error.message;
+    if (error.error && error.error.message) return error.error.message;
+    return JSON.stringify(error);
+  }
+
+  function setSyncStatus(message) {
+    const status = document.getElementById("syncStatus");
+    if (status) status.textContent = message;
   }
 
   function rowFromItem(item) {
@@ -240,6 +255,8 @@ const Sync = (() => {
       signInSection.style.display = "none";
       const emailLabel = document.getElementById("syncEmail");
       if (emailLabel) emailLabel.textContent = signedInEmail;
+      const status = document.getElementById("syncStatus");
+      if (status) status.style.display = "none";
       getLastSyncTime().then((t) => {
         const lastSyncLabel = document.getElementById("syncLastTime");
         if (lastSyncLabel && t) {
@@ -249,6 +266,8 @@ const Sync = (() => {
     } else {
       signedInSection.style.display = "none";
       signInSection.style.display = "block";
+      const status = document.getElementById("syncStatus");
+      if (status) status.style.display = "block";
     }
   }
 
